@@ -3,18 +3,16 @@
 namespace backend\controllers;
 
 use Yii;
-use backend\models\Projects;
-use backend\models\ProjectsSearch;
+use backend\models\Reports;
+use backend\models\ReportsSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
-use yii\filters\AccessControl;
-use yii\web\UploadedFile;
 
 /**
- * ProjectsController implements the CRUD actions for Projects model.
+ * ReportsController implements the CRUD actions for Reports model.
  */
-class ProjectsController extends Controller
+class ReportsController extends Controller
 {
     /**
      * @inheritdoc
@@ -22,22 +20,6 @@ class ProjectsController extends Controller
     public function behaviors()
     {
         return [
-//            'access' => [
-//                'class' => AccessControl::className(),
-//                'rules' => [
-//
-//                    [
-//                        'actions' => ['login', 'error'],
-//                        'allow' => true,
-//                    ],
-//                    [
-//                        'actions' => ['logout', 'index'],
-//                        'allow' => true,
-//                        'roles' => ['@'],
-//                    ],
-//                ],
-//
-//            ],
             'verbs' => [
                 'class' => VerbFilter::className(),
                 'actions' => [
@@ -48,12 +30,12 @@ class ProjectsController extends Controller
     }
 
     /**
-     * Lists all Projects models.
+     * Lists all Reports models.
      * @return mixed
      */
     public function actionIndex()
     {
-        $searchModel = new ProjectsSearch();
+        $searchModel = new ReportsSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
         return $this->render('index', [
@@ -63,7 +45,7 @@ class ProjectsController extends Controller
     }
 
     /**
-     * Displays a single Projects model.
+     * Displays a single Reports model.
      * @param integer $id
      * @return mixed
      */
@@ -75,39 +57,25 @@ class ProjectsController extends Controller
     }
 
     /**
-     * Creates a new Projects model.
+     * Creates a new Reports model.
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
     public function actionCreate()
     {
-        $model = new Projects();
+        $model = new Reports();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            $model->image = UploadedFile::getInstance($model, 'image');
-            if( $model->image ){
-                $model->upload(); // смотри файл модели
-            }
-            unset($model->image);
-            $model->gallery = UploadedFile::getInstances($model, 'gallery');
-            $model->uploadGallery();
-            Yii::$app->session->setFlash('success', "Решение добавлено");
             return $this->redirect(['view', 'id' => $model->id]);
-        }
-        if( Yii::$app->request->isAjax ){
-            return $this->renderAjax('create', [
-                'model' => $model,
-            ]);
-        }else{
+        } else {
             return $this->render('create', [
                 'model' => $model,
             ]);
         }
-
     }
 
     /**
-     * Updates an existing Projects model.
+     * Updates an existing Reports model.
      * If update is successful, the browser will be redirected to the 'view' page.
      * @param integer $id
      * @return mixed
@@ -126,7 +94,7 @@ class ProjectsController extends Controller
     }
 
     /**
-     * Deletes an existing Projects model.
+     * Deletes an existing Reports model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
      * @param integer $id
      * @return mixed
@@ -139,34 +107,18 @@ class ProjectsController extends Controller
     }
 
     /**
-     * Finds the Projects model based on its primary key value.
+     * Finds the Reports model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
      * @param integer $id
-     * @return Projects the loaded model
+     * @return Reports the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
     protected function findModel($id)
     {
-        if (($model = Projects::findOne($id)) !== null) {
+        if (($model = Reports::findOne($id)) !== null) {
             return $model;
         } else {
             throw new NotFoundHttpException('The requested page does not exist.');
         }
     }
-    public function actionDeleteimg($id_reshenie, $id_img)
-    {
-        $reshenie = Reshenie::find()
-            ->where(['id' => $id_reshenie])
-            ->one();
-
-        $images = $reshenie->getImages();
-        foreach($images as $img){
-            if($img->id==$id_img){
-                $reshenie->removeImage($img);
-            }
-        }
-        $success=true;
-        return json_encode($success);
-    }
-
 }

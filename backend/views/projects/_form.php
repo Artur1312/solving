@@ -27,7 +27,8 @@ use backend\models\Status;
         ArrayHelper::map(Status::find()->all(),'id','status'),
         ['prompt'=>'Select Status']
     )  ?>
-
+    <?= $form->field($model, 'image')->fileInput() ?>
+    <?= $form->field($model, 'gallery[]')->fileInput(['multiple' => true, 'accept' => 'image/*']) ?>
     <div class="form-group">
         <?= Html::submitButton($model->isNewRecord ? 'Create' : 'Update', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
     </div>

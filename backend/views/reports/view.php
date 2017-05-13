@@ -4,25 +4,13 @@ use yii\helpers\Html;
 use yii\widgets\DetailView;
 
 /* @var $this yii\web\View */
-/* @var $model backend\models\Projects */
+/* @var $model backend\models\Reports */
 
 $this->title = $model->id;
-$this->params['breadcrumbs'][] = ['label' => 'Projects', 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => 'Reports', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-
-
-<?php
-$img = $model->getImage();
-$gallery = $model->getImages();
-
-$img_str='';
-foreach($gallery as $img2){
-    $img_str.='<a class="fancybox img-thumbnail" rel="gallery1" href="'. $img2->getUrl().'">'.Html::img($img2->getUrl('84x85'), ['alt' => '']).'</a>';
-}
-
-?>
-<div class="projects-view">
+<div class="reports-view">
 
     <h1><?= Html::encode($this->title) ?></h1>
 
@@ -41,21 +29,17 @@ foreach($gallery as $img2){
         'model' => $model,
         'attributes' => [
             'id',
-            'project_name',
-            'company.company',
-            'description',
-            'status.status',
-            'img:image',
-            [
-                'attribute' => 'image',
-                'value' =>  $img_str,
-                'format' => 'html',
-            ],
-
+            'employees',
+            'created_at',
+            'creator',
+            'work_date',
+            'start_time',
+            'end_time',
+            'work_hours',
+            'lunch',
+            'comment',
+            'images',
         ],
     ]) ?>
-
-
-
 
 </div>

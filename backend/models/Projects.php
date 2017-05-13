@@ -18,13 +18,29 @@ use Yii;
  */
 class Projects extends \yii\db\ActiveRecord
 {
+
+
+    public $image;
+    public $gallery;
     /**
      * @inheritdoc
      */
+
+    public function behaviors()
+    {
+        return [
+            'image' => [
+                'class' => 'rico\yii2images\behaviors\ImageBehave',
+            ],
+
+        ];
+    }
+
     public static function tableName()
     {
         return 'projects';
     }
+
 
     /**
      * @inheritdoc
@@ -38,7 +54,34 @@ class Projects extends \yii\db\ActiveRecord
             [['description'], 'string', 'max' => 255],
             [['company_id'], 'exist', 'skipOnError' => true, 'targetClass' => Companies::className(), 'targetAttribute' => ['company_id' => 'id']],
             [['status_id'], 'exist', 'skipOnError' => true, 'targetClass' => Status::className(), 'targetAttribute' => ['status_id' => 'id']],
+            [['image'], 'file', 'extensions' => 'png, jpg'],
+            [['gallery'], 'file', 'extensions' => 'png, jpg', 'maxFiles' => 4],
         ];
+    }
+    public function upload(){
+        if($this->validate()){
+            $path = 'upload/store/' . $this->image->baseName . '.' . $this->image->extension;
+            $this->image->saveAs($path);
+            $this->attachImage($path, true);
+            @unlink($path);
+            return true;
+        }else{
+            return false;
+        }
+    }
+
+    public function uploadGallery(){ // сохраняет целиком галерею
+        if($this->validate()){
+            foreach($this->gallery as $file){
+                $path = 'upload/store/' . $file->baseName . '.' . $file->extension;
+                $file->saveAs($path);
+                $this->attachImage($path);
+                @unlink($path);
+            }
+            return true;
+        }else{
+            return false;
+        }
     }
 
     /**

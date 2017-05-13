@@ -44,7 +44,7 @@ AppAsset::register($this);
         $menuItems[] = ['label' => 'Projects', 'url' => ['/projects/index']];
         $menuItems[] = ['label' => 'Types of Status', 'url' => ['/status/index']];
         $menuItems[] = ['label' => 'Users', 'url' => ['/user/index']];
-
+        $menuItems[] = ['label' => 'Reports', 'url' => ['/reports/index']];
         $menuItems[] =
             '<li>'
             . Html::beginForm(['/site/logout'], 'post')
