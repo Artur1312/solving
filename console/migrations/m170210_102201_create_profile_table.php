@@ -5,14 +5,14 @@ use yii\db\Migration;
 /**
  * Handles the creation of table `users`.
  */
-class m170210_102201_create_users_table extends Migration
+class m170210_102201_create_profile_table extends Migration
 {
     /**
      * @inheritdoc
      */
     public function up()
     {
-        $this->createTable('users', [
+        $this->createTable('profile', [
             'id' => $this->primaryKey(),
             'first_name' => $this->string(50)->notNull(),
             'last_name' => $this->string(50)->notNull(),
@@ -28,7 +28,6 @@ class m170210_102201_create_users_table extends Migration
             'viber' => $this->integer(),
             'email' => $this->string()->notNull()->unique(),
             'description' => $this->string(),
-            'password' => $this->string()->notNull()->unique(),
 
         ]);
     }
@@ -38,6 +37,6 @@ class m170210_102201_create_users_table extends Migration
      */
     public function down()
     {
-        $this->dropTable('users');
+        $this->dropTable('profile');
     }
 }

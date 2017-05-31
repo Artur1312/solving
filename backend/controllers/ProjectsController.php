@@ -8,6 +8,7 @@ use backend\models\ProjectsSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use rico\yii2images\controllers\DefaultController;
 use yii\filters\AccessControl;
 use yii\web\UploadedFile;
 
@@ -85,13 +86,13 @@ class ProjectsController extends Controller
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             $model->image = UploadedFile::getInstance($model, 'image');
-            if( $model->image ){
-                $model->upload(); // смотри файл модели
+         if( $model->image ){
+             $model->upload(); // смотри файл модели
             }
-            unset($model->image);
-            $model->gallery = UploadedFile::getInstances($model, 'gallery');
-            $model->uploadGallery();
-            Yii::$app->session->setFlash('success', "Решение добавлено");
+           unset($model->image);
+            $model->photos = UploadedFile::getInstances($model, 'photos');
+            $model->uploadPhotos();
+            Yii::$app->session->setFlash('success', "Project created");
             return $this->redirect(['view', 'id' => $model->id]);
         }
         if( Yii::$app->request->isAjax ){
@@ -117,7 +118,16 @@ class ProjectsController extends Controller
         $model = $this->findModel($id);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            $model->image = UploadedFile::getInstance($model, 'image');
+            if( $model->image ){
+                $model->upload(); // смотри файл модели
+            }
+            unset($model->image);
+            $model->photos = UploadedFile::getInstances($model, 'photos');
+            $model->uploadPhotos();
             return $this->redirect(['view', 'id' => $model->id]);
+
+//            return $this->redirect(['view', 'id' => $model->id]);
         } else {
             return $this->render('update', [
                 'model' => $model,
@@ -153,16 +163,16 @@ class ProjectsController extends Controller
             throw new NotFoundHttpException('The requested page does not exist.');
         }
     }
-    public function actionDeleteimg($id_reshenie, $id_img)
+    public function actionDeleteimg($id_projectsimg, $id_img)
     {
-        $reshenie = Reshenie::find()
-            ->where(['id' => $id_reshenie])
+        $projects_image = Projects::find()
+            ->where(['id' => $id_projectsimg])
             ->one();
 
-        $images = $reshenie->getImages();
+        $images = $projects_image->getImages();
         foreach($images as $img){
             if($img->id==$id_img){
-                $reshenie->removeImage($img);
+                $projects_image->removeImage($img);
             }
         }
         $success=true;

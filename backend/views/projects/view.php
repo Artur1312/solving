@@ -45,7 +45,7 @@ foreach($gallery as $img2){
             'company.company',
             'description',
             'status.status',
-            'img:image',
+
             [
                 'attribute' => 'image',
                 'value' =>  $img_str,
