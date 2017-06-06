@@ -33,6 +33,7 @@ $this->params['breadcrumbs'][] = $this->title;
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
+//        'layout'=>"{sorter}\n{pager}\n{summary}\n{items}",
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
 
@@ -41,12 +42,24 @@ $this->params['breadcrumbs'][] = $this->title;
             'company.company',
             'description',
             'status.status',
+
             //  -------variant 4, it worked in DetailView----
 
+            [
+                'label' => 'Photo',
+                'format' => 'raw',
+                'value' => function ($data) {
+                    return Html::img('@web/backend/web/upload/store/' . $data['photos'],
+                        ['width' => '60px']);
+                },
+            ],
+
 //            [
-//                'attribute' => 'image',
-//                'value' =>  $img_str,
-//                'format' => 'html',
+//            'attribute' => 'img',
+//                'value' => function ($data) {
+//                    $url = \Yii::getAlias('@backend/web/upload/').$data->image;
+//                    return Html::img($url, ['alt'=>'myImage','width'=>'70','height'=>'50']);
+//                }
 //            ],
 
           //  -------variant 1----
@@ -76,5 +89,6 @@ $this->params['breadcrumbs'][] = $this->title;
 //            ),
             ['class' => 'yii\grid\ActionColumn'],
         ],
+        'tableOptions' =>['class' => 'table table-striped table-bordered'],
     ]); ?>
 </div>

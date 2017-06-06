@@ -121,6 +121,7 @@ class ProjectsController extends Controller
             $model->image = UploadedFile::getInstance($model, 'image');
             if( $model->image ){
                 $model->upload(); // смотри файл модели
+
             }
             unset($model->image);
             $model->photos = UploadedFile::getInstances($model, 'photos');
