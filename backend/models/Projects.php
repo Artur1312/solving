@@ -56,7 +56,7 @@ class Projects extends \yii\db\ActiveRecord
             [['company_id'], 'exist', 'skipOnError' => true, 'targetClass' => Companies::className(), 'targetAttribute' => ['company_id' => 'id']],
             [['status_id'], 'exist', 'skipOnError' => true, 'targetClass' => Status::className(), 'targetAttribute' => ['status_id' => 'id']],
             [['image'], 'file', 'extensions' => 'png, jpg'],
-            [['photos'], 'file', 'extensions' => 'png, jpg', 'maxFiles' => 4],
+            [['photos'], 'file', 'extensions' => 'png, jpg', 'maxFiles' => 10],
         ];
     }
     public function upload(){

@@ -49,7 +49,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 'label' => 'Photo',
                 'format' => 'raw',
                 'value' => function ($data) {
-                    return Html::img('@web/backend/web/upload/store/' . $data['photos'],
+                    return Html::img('@web/backend/web/upload/store/' . $data['image'],
                         ['width' => '60px']);
                 },
             ],

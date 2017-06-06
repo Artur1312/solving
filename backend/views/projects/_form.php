@@ -5,6 +5,7 @@ use yii\helpers\ArrayHelper;
 use yii\widgets\ActiveForm;
 use backend\models\Companies;
 use backend\models\Status;
+use yii\helpers\Url;
 
 use rico\yii2images\controllers\ImagesController;
 /* @var $this yii\web\View */
@@ -32,26 +33,28 @@ use rico\yii2images\controllers\ImagesController;
         ['prompt'=>'Select Status']
     )  ?>
 <!--    //= $form->field($model, 'image')->fileInput() \\\ $form->field($model, 'photos[]')->fileInput(['multiple' => true, 'accept' => 'image/*'])-->
-    <?= $form->field($model, 'image')->fileInput() ?>
-    <div class="form-group">
-        <div class="col-md-offset-2 col-md-10">
-            <?php
-            $photos = $model->getImages();
-            ?>
-            <div class="row">
-                <?php foreach ($photos as $image): ?>
-                <div class="col-md-3 text-center">
-                    <img src="<?=$image->getUrl('200x200')?>" alt=""/>
-                </div>
-                <?php endforeach;  ?>
-            </div>
-        </div>
-    </div>
+    <?= $form->field($model, 'photos[]')->fileInput(['multiple' => true, 'accept' => 'image/*']) ?>
+    <?php
+    $gallery = $model->getImages();
 
+//    print_r($gallery );
+    $img_str='';
+    echo ' <div class="row">';
+    foreach($gallery as $img_g){
+        $url_delete=Url::toRoute(['ProjectsController/actionDeleteimg', 'id_projectsimg' => $model->id, 'id_img' => $img_g->id]); //настройка роутера на нужный урл
+        $img_str.='		
+		<div class="col-xs-6 col-md-3">
+		<div  class="thumbnail project_image_form">
+			 <a class="btn delete_project_img" title="Delete this item?" href="'.$url_delete.'" data-id="'.$img_g->id.'"><span class="glyphicon glyphicon-remove"></span></a> 
+		  <a class="fancybox img-rounded" rel="gallery1" href="'. $img_g->getUrl().'">'.Html::img($img_g->getUrl('200x200'), ['alt' => '']).'</a>
+		</div>
+		</div> ';
+    }
+    echo $img_str;
+    echo '</div>';
+    ?>
     <div class="form-group">
         <?= Html::submitButton($model->isNewRecord ? 'Create' : 'Update', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
     </div>
-
     <?php ActiveForm::end(); ?>
-
 </div>
