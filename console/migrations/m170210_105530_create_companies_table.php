@@ -14,7 +14,7 @@ class m170210_105530_create_companies_table extends Migration
     {
         $this->createTable('companies', [
             'id' => $this->primaryKey(),
-            'company' => $this->string(50)->notNull(),
+            'company' => $this->string(50)->notNull()->unique(),
         ]);
     }
 

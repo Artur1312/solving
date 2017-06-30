@@ -44,7 +44,6 @@ use rico\yii2images\controllers\ImagesController;
         $url_delete=Url::toRoute(['projects/deleteimg', 'id_projectsimg' => $model->id, 'id_img' => $img_g->id]);
         $img_str.='		
 		<div class="col-xs-6 col-md-3">
-		
 		<div  class="thumbnail project_image_form">
 		<a class="btn delete_project_img" title="Delete this item?" href="'.$url_delete.'" data-id="'.$img_g->id.'"><span class="glyphicon glyphicon-remove"></span></a>  
 		  <a class="fancybox img-rounded" rel="gallery1" href="'. $img_g->getUrl().'">'.Html::img($img_g->getUrl('350x350'), ['alt' => '']).'</a>

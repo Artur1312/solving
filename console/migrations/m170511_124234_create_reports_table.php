@@ -14,6 +14,7 @@ class m170511_124234_create_reports_table extends Migration
     {
         $this->createTable('reports', [
             'id' => $this->primaryKey(),
+            'name of report' => $this->string(255)->unique(),
             'employees' => $this->integer()->notNull(),
             'created_at' => $this->date()->notNull(),
             'creator' => $this->integer(),
