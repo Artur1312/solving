@@ -30,11 +30,19 @@ body {
     font-size: 21px;
     padding: 14px 24px;
 }
+.navbar-inverse {
+    background-color: #e8b51d;
+    border-bottom-width: 0;
 
+}
 .not-set {
     color: #c55;
     font-style: italic;
 }
+.navbar-inverse .navbar-nav > li > a {
+    color: #020202;
+}
+
 
 /* add sorting icons to gridview sort links */
 a.asc:after, a.desc:after {
@@ -48,12 +56,23 @@ a.asc:after, a.desc:after {
     padding-left: 5px;
 }
 
+
+/*a.navbar-brand {*/
+/*font-family: 'Anton', sans-serif;*/
+/*color: #020202;*/
+/*}*/
+
+.navbar-inverse .navbar-brand {
+    font-family: 'Anton', sans-serif;
+    color: #020202;
+}
+
 a.asc:after {
-    content: /*"\e113"*/ "\e151";
+    content: "\e151";
 }
 
 a.desc:after {
-    content: /*"\e114"*/ "\e152";
+    content: "\e152";
 }
 
 .sort-numerical a.asc:after {
@@ -86,6 +105,47 @@ a.desc:after {
     margin-top: 5px;
     color: #999;
 }
+.navbar-inverse .btn-link {
+    color: #020202;
+}
+.btn-success{
+    color: #020202;
+    border-color: #020202;
+    background-color: transparent;;
+}
+.btn-success:hover{
+    border-color: #020202;
+    background-color: #020202;
+}
+
+/*buttons*/
+.btn-primary{
+    color: #e8b51d;
+    border-color: #e8b51d;
+    background-color: transparent;;
+}
+
+.btn-primary:hover{
+    border-color: #e8b51d;
+    background-color: #e8b51d;
+}
+
+.btn-danger{
+    color: #a94442;
+    border-color: #a94442;
+    background-color: transparent;;
+}
+
+.btn-danger:hover{
+    border-color: #a94442;
+    background-color: #a94442;
+}
+
+a {
+    color: #020202;
+    text-decoration: none;
+}
+/*buttons end*/
 
 .error-summary {
     color: #a94442;

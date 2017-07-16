@@ -7,7 +7,7 @@ use backend\models\Companies;
 /* @var $this yii\web\View */
 /* @var $model backend\models\Companies */
 
-$this->title = 'Create Companies';
+$this->title = 'Create a Company';
 $this->params['breadcrumbs'][] = ['label' => 'Companies', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>

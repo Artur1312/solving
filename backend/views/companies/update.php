@@ -6,7 +6,7 @@ use backend\models\Companies;
 /* @var $this yii\web\View */
 /* @var $model backend\models\Companies */
 
-$this->title = 'Update Companies: ' . $model->id;
+$this->title = 'Update a Company\'s name: ' . $model->id;
 $this->params['breadcrumbs'][] = ['label' => 'Companies', 'url' => ['index']];
 $this->params['breadcrumbs'][] = ['label' => $model->id, 'url' => ['view', 'id' => $model->id]];
 $this->params['breadcrumbs'][] = 'Update';
